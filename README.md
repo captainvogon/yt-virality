@@ -2,7 +2,7 @@
 
 # Introduction
 With the rapid growth of online video platforms such as YouTube, millions of videos are uploaded every day. However, only a small percentage of these videos become viral, receiving a very large number of views, likes, and comments within a short period.
-Understanding why certain videos become viral while others do not is an important problem in statistics and data analysis. Viral videos often depend on multiple factors such as viewer engagement, upload timing, and channel popularity.
+Understanding why certain videos become viral while others do not is an important problem in statistics and data analysis. Viral videos often depend on multiple factors such as viewer engagement, upload timing, and channel popularity. Thus, the goal of this project is to analyze Youtube video metrics using statistical techniques such as **Descriptive statistics, probability distributions, clusterting, and time series analysis**, to identify patterns associated with **Video Virality** and to determine which factors most strongly influence the popularity of a video. 
 
 # Research Questions
 This project attempts to answer the following questions:
