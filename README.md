@@ -18,14 +18,28 @@ Source: [Kaggle](https://www.kaggle.com/datasets/asaniczka/trending-youtube-vide
 The dataset contains daily trending video records across 110 countries, covering the period from late 2024 to early 2026. After cleaning (removing the Movies category which had no view data, and capping video duration at 60 minutes to exclude livestreams and movie uploads), the working dataset contains approximately **4.8 million rows** across **15 video categories**.
 
 Key columns used:
-- `video_view_count`, `video_like_count`, `video_comment_count`
-- `channel_subscriber_count`, `video_duration`
-- `video_category_id`, `video_trending_country`
-- `video_published_at`, `video_trending__date`
+- Engagement - `video_view_count`, `video_like_count`, `video_comment_count`
+- Channel - `channel_subscriber_count`, `video_duration`
+- Content - `video_category_id`, `video_trending_country`
+- Temporal - `video_published_at`, `video_trending__date`
 
-A video is defined as **viral** if its view count falls in the top 10% of the dataset (≥ ~25 million views).
+## Defining Virality
 
----
+A key challenge we faced in this project is defining virality in a way that is both meaningful and statistically robust. A naive definition based purely on high view counts is insufficient, as it does not account for differences in channel size or the time available for a video to accumulate views.
+
+Instead, we define virality as the extent to which a video outperforms its expected view count, given its channel size and time since publication.
+
+Specifically, we model expected video performance using a log-linear regression:
+⁡
+- log(views) = a + b x log(subscribers) + c x log(time) + 𝜖
+  
+The residual term (𝜖) represents the deviation from expected performance and is used as a virality score:
+
+Positive residual - video performed better than expected (viral)
+
+Negative residual - underperformed relative to expectations
+
+For classification purposes, videos in the top 10% of the residual distribution are labelled as viral.
 
 ## Research Questions
 
