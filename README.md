@@ -7,8 +7,6 @@ With the rapid growth of online video platforms such as YouTube, millions of vid
 The goal of this project is to analyse YouTube trending video metrics using a full statistical pipeline - spanning descriptive statistics, probability distributions, Monte Carlo simulation, statistical inference, dimensionality reduction, clustering, and time series analysis - to identify patterns associated with video virality and determine which factors most strongly influence a video's popularity.
 
 This project was completed as part of the course **PHY5132/6132/AOE5132 - Statistics and Data Analysis**.
-
----
  
 ## Dataset
 
@@ -40,8 +38,6 @@ This creates a level playing field, highlighting "breakout" content. For classif
 3. Which metadata factors (duration, channel size, title length, tags) most strongly predict a viral hit?
 4. Can we build a highly precise logistic regression model to predict if a video will go viral or not?
 
----
-
 ## Methods Used
 
 - Exploratory Data Analysis: Spearman correlation and non-parametric comparisons.
@@ -50,8 +46,6 @@ This creates a level playing field, highlighting "breakout" content. For classif
 - Predictive Modeling: Logistic Regression with balanced class weights.
 - Threshold Optimization: Fine-tuning decision boundaries using ROC curves, Precision-Recall curves, and custom Confusion Matrices to minimize Type I errors (False Positives).
 
----
-
 ## Key Findings
 
 - The Shape of Virality: Viral hits are exceptionally rare and follow a steep Log-Normal distribution. The algorithm batches these trends, typically surfacing them within the first 72 hours of publication (following a Gamma distribution).
@@ -59,8 +53,6 @@ This creates a level playing field, highlighting "breakout" content. For classif
 - By optimizing our predictive model to a high-confidence 0.75 probability threshold, we successfully built a recommendation engine that catches roughly 46% of all viral hits while keeping the False Positive rate safely under 6%.
 
 > Add More...
-
----
 
 ## Repository Structure
 
