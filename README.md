@@ -25,61 +25,48 @@ Key columns used:
 
 ## Defining Virality
 
-A key challenge we faced in this project is defining virality in a way that is both meaningful and statistically robust. A naive definition based purely on high view counts is insufficient, as it does not account for differences in channel size or the time available for a video to accumulate views.
+A key challenge in this project was defining virality in a way that is both meaningful and statistically robust. A naive definition based purely on high view counts is insufficient, as it heavily biases toward massive, established channels.
 
-Instead, we define virality as the extent to which a video outperforms its expected view count, given its channel size and time since publication.
+Instead, we defined virality using a View Multiplier, which measures how a video performs relative to the channel's existing baseline audience:
 
-Specifically, we model expected video performance using a log-linear regression:
-⁡
-- log(views) = a + b x log(subscribers) + c x log(time) + 𝜖
-  
-The residual term (𝜖) represents the deviation from expected performance and is used as a virality score:
+```Virality Score = View Count / Subscriber Count```
 
-Positive residual - video performed better than expected (viral)
-
-Negative residual - underperformed relative to expectations
-
-For classification purposes, videos in the top 10% of the residual distribution are labelled as viral.
+This creates a level playing field, highlighting "breakout" content. For classification purposes, videos in the top 10% of this distribution are labeled as Viral (1), while the remaining 90% are labeled as Normal (0).
 
 ## Research Questions
 
-1. What statistical patterns exist in YouTube video engagement metrics?
-2. Which factors most strongly influence video virality?
-3. Can we model and simulate the distribution of video views?
-4. How does virality probability differ across categories, and how uncertain are those estimates?
-5. What do unsupervised methods reveal about natural groupings of trending videos?
-6. How does trending video volume and viewership evolve over time?
+1. What statistical distributions govern YouTube video engagement and "time-to-trend"?
+2. Do certain days of the week or specific months yield a higher share of trending videos?
+3. Which metadata factors (duration, channel size, title length, tags) most strongly predict a viral hit?
+4. Can we build a highly precise logistic regression model to predict if a video will go viral or not?
 
 ---
 
 ## Methods Used
 
-- Descriptive statistics and correlation analysis
-- Distribution fitting: log-normal (view counts), Beta (like rate), Gamma (time to trend)
-- Bootstrap resampling and Monte Carlo simulation
-- One-way ANOVA and logistic regression
-- Bayesian inference with Beta prior vs frequentist proportion estimation
-- Principal component analysis (PCA)
-- K-means clustering
-- Time series smoothing and trend analysis
+- Exploratory Data Analysis: Spearman correlation and non-parametric comparisons.
+- Statistical Distribution Fitting: Log-Normal fitting for virality scores and Gamma fitting for incubation time (hours to trend).
+- Time Series Analysis: Day-of-week trends and category-specific monthly share tracking.
+- Predictive Modeling: Logistic Regression with balanced class weights.
+- Threshold Optimization: Fine-tuning decision boundaries using ROC curves, Precision-Recall curves, and custom Confusion Matrices to minimize Type I errors (False Positives).
 
 ---
 
 ## Key Findings
 
-- **Category matters enormously**: Howto & Style and Pets & Animals have viral rates of ~30%, while Gaming sits at ~1% despite being the largest category by video count
-- **Short videos dominate**: videos under 1 minute have a median view count 10× higher than videos over 5 minutes
-- **Subscriber count alone is not enough**: large channels appear across the full range of view counts - audience size does not guarantee virality
-- **Likes are the strongest predictor**: logistic regression shows like count (corr = 0.89 with views) and subscriber count are the top positive drivers; duration is a negative predictor
-- **Three natural video tiers exist**: clustering identifies a low-engagement tier (median 314k views, ~0% viral), a mid-tier, and a high-viral tier (median 7.3M views, ~22% viral rate)
-- **Sports content trends fastest**: Sports videos accumulate ~55k views per hour before trending - roughly 3× the rate of Gaming
+- The Shape of Virality: Viral hits are exceptionally rare and follow a steep Log-Normal distribution. The algorithm batches these trends, typically surfacing them within the first 72 hours of publication (following a Gamma distribution).
+- The "Short & Niche" Formula: Our Logistic Regression model revealed that Duration and Subscriber Count are the strongest negative predictors of virality. The algorithm highly favors short-form content from smaller, breakout creators over long-form content from established giants.
+- By optimizing our predictive model to a high-confidence 0.75 probability threshold, we successfully built a recommendation engine that catches roughly 46% of all viral hits while keeping the False Positive rate safely under 6%.
+
+> Add More...
 
 ---
 
 ## Repository Structure
 
 ```
-- data.parquet                        # Dataset from Kaggle, formatted as .parquet file
-- yt-virality.ipynb                   # main jupyter notebook
-- README.md
+- data.parquet                        # Dataset from Kaggle (formatted as .parquet)
+- yt-virality.ipynb                   # Main statistical, time-series, and predictive analysis
+- thumbnail.ipynb                     # Visual analysis of video thumbnails
+- README.md                           # Project documentation
 ```
