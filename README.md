@@ -1,10 +1,10 @@
-# Predicting YouTube Virality: A Statistical Analysis of YouTube Metrics
+# Predicting YouTube Virality: A Statistical Analysis of YouTube Trends
 
 ## Introduction
 
 With the rapid growth of online video platforms such as YouTube, millions of videos are uploaded every day. However, only a small percentage of these videos become viral - receiving a very large number of views, likes, and comments within a short period. Understanding why certain videos go viral while others do not is an important problem in statistics and data analysis. Viral videos often depend on multiple factors such as viewer engagement, upload timing, video duration, and channel popularity.
 
-The goal of this project is to analyse YouTube trending video metrics using a full statistical pipeline - spanning descriptive statistics, probability distributions, Monte Carlo simulation, statistical inference, dimensionality reduction, clustering, and time series analysis - to identify patterns associated with video virality and determine which factors most strongly influence a video's popularity.
+The goal of this project is to analyse YouTube trending video metrics using a full statistical pipeline to identify patterns associated with video virality and determine which factors most strongly influence a video's popularity.
 
 This project was completed as part of the course **PHY5132/6132/AOE5132 - Statistics and Data Analysis**.
  
@@ -13,7 +13,7 @@ This project was completed as part of the course **PHY5132/6132/AOE5132 - Statis
 **YouTube Trending Videos Dataset - Daily Update**
 Source: [Kaggle](https://www.kaggle.com/datasets/asaniczka/trending-youtube-videos-113-countries)
 
-The dataset contains daily trending video records across 110 countries, covering the period from late 2024 to early 2026. After cleaning (removing the Movies category which had no view data, and capping video duration at 60 minutes to exclude livestreams and movie uploads), the working dataset contains approximately **4.8 million rows** across **15 video categories**.
+The dataset contains daily trending video records across 110 countries, covering the period from late 2024 to early 2026. After cleaning (removing the Movies category which had no view data, and capping video duration at 60 minutes to exclude livestreams and movie uploads), the working dataset contains approximately **7 million rows** across **15 video categories**.
 
 Key columns used:
 - Engagement - `video_view_count`, `video_like_count`, `video_comment_count`
@@ -50,7 +50,7 @@ This creates a level playing field, highlighting "breakout" content. For classif
 
 - The Shape of Virality: Viral hits are exceptionally rare and follow a steep Log-Normal distribution. The algorithm batches these trends, typically surfacing them within the first 72 hours of publication (following a Gamma distribution).
 - The "Short & Niche" Formula: Our Logistic Regression model revealed that Duration and Subscriber Count are the strongest negative predictors of virality. The algorithm highly favors short-form content from smaller, breakout creators over long-form content from established giants.
-- By optimizing our predictive model to a high-confidence 0.75 probability threshold, we successfully built a recommendation engine that catches roughly 46% of all viral hits while keeping the False Positive rate safely under 6%.
+- By optimizing our predictive model to a high-confidence 0.75 probability threshold, we successfully built a recommendation engine that catches roughly 46% of all viral hits while keeping the False Positive rate safely under 9%.
 
 > Add More...
 
